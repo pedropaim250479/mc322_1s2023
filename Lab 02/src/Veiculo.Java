@@ -1,7 +1,7 @@
 public class Veiculo {
     private String placa;
     private String marca;
-    private String modelo;
+    public String modelo;
     
 
     
