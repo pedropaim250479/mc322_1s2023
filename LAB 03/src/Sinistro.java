@@ -11,7 +11,7 @@ public class Sinistro {
     private int count = 0;
 
 /*Função que retorna o Id aleatório */
-    public Sinistro(int id, String data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
+    public Sinistro(String data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente) {
         this.id = gerarId();
         this.data = data;
         this.endereco = endereco;
@@ -78,7 +78,7 @@ public class Sinistro {
 
     @Override
     public String toString() {
-        return "Sinistro, id=" + id + ", data=" + data + ", endereco=" + endereco + ", seguradora=" + seguradora
+        return "Sinistro, "+ ", data=" + data + ", endereco=" + endereco + ", seguradora=" + seguradora
                 + ", veiculo=" + veiculo + ", cliente=" + cliente + ", count=" + count + "]";
     }
 

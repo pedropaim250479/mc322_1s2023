@@ -1,28 +1,23 @@
 package classes.lab;
-import java.util.List;
-import java.sql.Date;
+import java.util.Date;
+
 
 public class ClientePJ extends Cliente {
-    private String cnpj;
+    private final String cnpjCliente; //Não pode se alterar o cnpj da empresa
     private Date dataFundacao;
 
     //Construror da classe PJ
-    public ClientePJ (String nome, String endereco, Date dataLicenca, String educacao, String genero, String classeEconomica, 
-    List<Veiculo> listaVeiculos, String cnpj, Date dataNascimento){
-        super(nome, dataLicenca, educacao, genero, classeEconomica, endereco, listaVeiculos);
-        this.cnpj = cnpj;
-        this.dataFundacao = dataNascimento;
+    public ClientePJ (String nome, String endereco, Date dataFundacao, String cnpj, String tipoCliente){
+        super(nome,tipoCliente, endereco);
+        this.cnpjCliente = cnpj;
+        this.dataFundacao = dataFundacao;
 
     }
 
     //Getters and Setters
 
     public String getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+        return cnpjCliente;
     }
 
     public Date getDataFundacao() {
@@ -33,15 +28,20 @@ public class ClientePJ extends Cliente {
         this.dataFundacao = dataFundacao;
     }
 
+    @Override
+    public String getId(){ // Utiliza o getId da classe CLiente
+        return cnpjCliente;
+    }
+
 
     //Metodo toString()
     @Override
     public String toString() {
-        return "ClientePJ, cnpj=" + cnpj + ", data de Fundacao=" + dataFundacao + "]";
+        return "ClientePJ, cnpj=" + cnpjCliente + ", data de Fundacao=" + dataFundacao + super.toString() + ".\n";
     }
 
     //Validação de CNPK
-    public static boolean validarCNPJ(String cnpj){
+    public boolean validarCNPJ(String cnpj){
         //1. REmove os caracteres não numéricos
         cnpj = cnpj.replaceAll("[^\\d]", "");
 

@@ -1,28 +1,19 @@
 package classes.lab;
-import java.util.List;
-import java.sql.Date;
 import java.util.ArrayList;
 
-public class Cliente{
+public abstract class Cliente{
     private String nome;
-    private Date dataLicenca;
-    private String educacao;
-    private String genero;
-    private String classeEconomica;
+    private String tipoCliente;
     private String endereco;
-    private List<Veiculo> listaVeiculos;
+    private ArrayList<Veiculo> listaVeiculos;
     
     //Construtor de Cliente
 
-    public Cliente(String nome, Date dataLicenca, String educacao, String genero, String classeEconomica,
-        String endereco, List<Veiculo> listaVeiculos) {
+    public Cliente(String nome, String tipoCliente, String endereco) {
         this.nome = nome;
-        this.dataLicenca = dataLicenca;
-        this.educacao = educacao;
-        this.genero = genero;
-        this.classeEconomica = classeEconomica;
+        this.tipoCliente = tipoCliente;
         this.endereco = endereco;
-        this.listaVeiculos = new ArrayList<>();
+        this.listaVeiculos = new ArrayList<Veiculo>();
     }
 
     //Getters and Setters
@@ -35,38 +26,6 @@ public class Cliente{
         this.nome = nome;
     }
 
-    public Date getDataLicenca() {
-        return dataLicenca;
-    }
-
-    public void setDataLicenca(Date dataLicenca) {
-        this.dataLicenca = dataLicenca;
-    }
-
-    public String getEducacao() {
-        return educacao;
-    }
-
-    public void setEducacao(String educacao) {
-        this.educacao = educacao;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public String getClasseEconomica() {
-        return classeEconomica;
-    }
-
-    public void setClasseEconomica(String classeEconomica) {
-        this.classeEconomica = classeEconomica;
-    }
-
     public String getEndereco() {
         return endereco;
     }
@@ -75,19 +34,43 @@ public class Cliente{
         this.endereco = endereco;
     }
 
-    public List<Veiculo> getListaVeiculos() {
+    public String getTipoCliente() {
+        return tipoCliente;
+    }
+
+    public void setTipoCliente(String tipoCliente) {
+        this.tipoCliente = tipoCliente;
+    }
+
+    public ArrayList<Veiculo> getListaVeiculos() {
         return listaVeiculos;
     }
 
-    public void setListaVeiculos(List<Veiculo> listaVeiculos) {
+    public void setListaVeiculos(ArrayList<Veiculo> listaVeiculos) {
         this.listaVeiculos = listaVeiculos;
     }
+
+    public void removeVeiculoCliente(Veiculo veiculoCliente){
+        listaVeiculos.remove(veiculoCliente);
+    }
+
+    public void addVeiculoCliente(Veiculo veiculoCliente){
+        listaVeiculos.add(veiculoCliente);
+    }
+
+
+    public Veiculo procuraVeiculoCliente(String placa){
+        for(Veiculo veiculo : listaVeiculos){
+            if(veiculo.getPlaca().equals(placa)){
+                return veiculo;
+            }            
+        }return null;
+    }
+
+    public abstract String getId();
     
     @Override
     public String toString() {
-        return "Cliente [nome=" + nome + ", dataLicenca=" + dataLicenca + ", educacao=" + educacao + ", genero="
-                + genero + ", classeEconomica=" + classeEconomica + ", endereco=" + endereco + ", listaVeiculos="
-                + listaVeiculos + "]";
+        return "Cliente [nome=" + nome + ", endereco=" + endereco + "]";
     }
-
 }

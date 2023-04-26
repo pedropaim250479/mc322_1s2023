@@ -1,28 +1,33 @@
 package classes.lab;
-import java.sql.Date;
-import java.util.List;
+import java.util.Date;
 
 public class ClientePF extends Cliente {
-    private String cpf;
+    private final String cpfCliente;
     private Date dataNascimento;
+    private Date dataLicenca;
+	private String educacao;
+	private String genero;
+	private String classeEconomica;
+
+   
 
     //Construtor da classe e superClasse
     public ClientePF (String nome, String endereco, Date dataLicenca, String educacao, String genero, String classeEconomica, 
-    List<Veiculo> listaVeiculos, String cpf, Date dataNascimento){
-        super(nome, dataLicenca, educacao, genero, classeEconomica, endereco, listaVeiculos);
-        this.cpf = cpf;
+    String cpf, Date dataNascimento, String tipoCliente){
+        super(nome, tipoCliente, endereco);
+        this.cpfCliente = cpf;
+        this.dataLicenca = dataLicenca;
         this.dataNascimento = dataNascimento;
+        this.genero = genero;
+        this.educacao = educacao;
+        this.classeEconomica = classeEconomica;
 
     }
 
     //GEtters and Setters
 
     public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+        return cpfCliente;
     }
 
     public Date getDataNascimento() {
@@ -33,10 +38,46 @@ public class ClientePF extends Cliente {
         this.dataNascimento = dataNascimento;
     }
 
+    public Date getDataLicenca() {
+        return dataLicenca;
+    }
+
+    public void setDataLicenca(Date dataLicenca) {
+        this.dataLicenca = dataLicenca;
+    }
+
+    public String getEducacao() {
+        return educacao;
+    }
+
+    public void setEducacao(String educacao) {
+        this.educacao = educacao;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getClasseEconomica() {
+        return classeEconomica;
+    }
+
+    public void setClasseEconomica(String classeEconomica) {
+        this.classeEconomica = classeEconomica;
+    }
+
+    @Override
+    public String getId(){ // Utiliza o getId da classe CLiente
+        return cpfCliente;
+    }
     //Método toString()
     @Override
     public String toString() {
-        return "ClientePF, cpf=" + cpf + ", data de Nascimento=" + dataNascimento + "]";
+        return "ClientePF, cpf=" + cpfCliente + ", data de Nascimento=" + dataNascimento + "]";
     }
 
     //Verificador de validade de CPF

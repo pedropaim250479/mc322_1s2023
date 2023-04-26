@@ -5,6 +5,13 @@ public class Veiculo {
     public String modelo;
     public int anoFabricacao;
 
+    public Veiculo(String placa, String marca, String modelo, int anoFabricacao) {
+        this.placa = placa;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.anoFabricacao = anoFabricacao;
+    }
+
     public String getPlaca() {
         return placa;
     }
