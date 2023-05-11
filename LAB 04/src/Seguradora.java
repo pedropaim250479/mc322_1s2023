@@ -149,12 +149,16 @@ public class Seguradora {
         }
     }
 
-    public void calculaPrecoSeguroCliente() {
-
+    public double calculaPrecoSeguroCliente(Cliente cliente) {
+        double sizeList = listaSinistro.size();
+        return cliente.calculaScore() * (1 + sizeList);
     }
 
-    public void calcularReceita() {
-
+    public double calcularReceita() {
+        double sum = 0;
+        for (Cliente cliente : listaCliente)
+            sum += cliente.getValorSeguro();
+        return sum;
     }
 
     public String toString() {
