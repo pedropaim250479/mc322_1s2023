@@ -1,0 +1,46 @@
+enum Planets {
+    MERCURIO(1, "Este Planeta é pequeno. ", 1.234),
+    VENUS(2, "Este planeta é parecido com o nosso. ", 5.32),
+    TERRA(3, "Este é o nosso planeta. ", 6.4),
+    MARTE(4, "Este Planeta é vermelho. ", 4.3),
+    SATURNO(6, "Este planeta tem anéis. ", 9.12),
+    NETUNO(7, "Este planeta é Frio. ", 8.84),
+    JUPITER(5, "Este planeta é gigante. ", 12.32);
+
+    int num;
+    String desc;
+    double mass;
+
+    Planets(int num, String desc, double mass) {
+        this.num = num;
+        this.desc = desc;
+        this.mass = mass;
+    }
+
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Planets myPlanet = Planets.MERCURIO;
+        Planets planet;
+
+        
+
+        canILiveHere(myPlanet);
+    }
+
+    static void canILiveHere(Planets myPlanet) {
+        switch (myPlanet) {
+            case TERRA:
+                System.out.println("Você mora aqui");
+                System.out.println(myPlanet + " é o planeta #" + myPlanet.num + "do sistema Solar. " + myPlanet.desc
+                        + "Sua massa é " + myPlanet.mass);
+                break;
+            default:
+                System.out.println("Você nao mora aqui");
+                System.out.println(myPlanet + " é o planeta #" + myPlanet.num + " do sistema Solar. " + myPlanet.desc
+                        + "Sua massa é " + myPlanet.mass);
+        }
+    }
+}
