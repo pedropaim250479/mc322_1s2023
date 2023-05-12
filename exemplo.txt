@@ -1,0 +1,24 @@
+public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        Planets myPlanet;
+        do {
+            myPlanet = Planets.valueOf(scan.nextLine());
+            switch (myPlanet) {
+                case TERRA:
+                    System.out.println("Você mora aqui");
+                    System.out.println(myPlanet + " é o planeta #" + myPlanet.num + "do sistema Solar. " + myPlanet.desc
+                            + "Sua massa é " + myPlanet.mass);
+                    break;
+                case SAIR:
+                    scan.close();
+                    break;
+                default:
+                    System.out.println("Você nao mora aqui");
+                    System.out
+                            .println(myPlanet + " é o planeta #" + myPlanet.num + " do sistema Solar. " + myPlanet.desc
+                                    + "Sua massa é " + myPlanet.mass);
+            }
+        } while (myPlanet != Planets.SAIR);
+    }
+
+}
