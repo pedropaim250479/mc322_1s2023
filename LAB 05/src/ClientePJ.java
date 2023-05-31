@@ -49,6 +49,44 @@ public class ClientePJ extends Cliente {
         this.listaFrotas = listaFrotas;
     }
 
+    public boolean cadastrarFrota(Frota frota) {
+        for (Frota frotaCadastrar : listaFrotas) {
+            if (frotaCadastrar.equals(frota)) {
+                System.out.println("Frota já cadastrada");
+                return false;
+            }
+        }
+        listaFrotas.add(frota);
+        return true;
+    }
+
+    public boolean atualizarFrota(Frota frotaAtualizar, Veiculo veiculoAtualizar) {
+        for (Frota frotaCadastrada : listaFrotas) {
+            if (frotaCadastrada.equals(frotaAtualizar)) {
+                // frota encontrada
+                for (Veiculo veiculoCadastrado : frotaCadastrada.getListaVeiculos()) {
+                    if (veiculoCadastrado.equals(veiculoAtualizar)) {
+                        (frotaCadastrada.getListaVeiculos()).remove(veiculoAtualizar);
+                        return true;
+                    }
+
+                }
+                // veiculo nao encontrado, devo adiciona-lo
+                (frotaCadastrada.getListaVeiculos()).add(veiculoAtualizar);
+
+            }
+        }
+
+        return true;
+    }
+
+    public void atualizarFrota(String idVeiculo) {
+        for (Frota frota : listaFrotas) {
+            frota.removeVeiculo(idVeiculo);
+            break;
+        }
+    }
+
     @Override
     public String getId() { // Utiliza o getId da classe CLiente
         return cnpjCliente;
@@ -57,7 +95,10 @@ public class ClientePJ extends Cliente {
     // Metodo toString()
     @Override
     public String toString() {
-        return "ClientePJ, cnpj=" + cnpjCliente + ", data de Fundacao=" + dataFundacao + super.toString() + ".\n";
+        return "[" + " CNPJ='" + getCnpj() + "'" + ", dataFundacao='" + getDataFundacao() + "'" + ", listaFrotas='"
+                + getListaFrotas() + "'" +
+                ", qtdeFuncionarios='" + getQtdeFuncionarios() + "'" +
+                "]";
     }
 
     @Override

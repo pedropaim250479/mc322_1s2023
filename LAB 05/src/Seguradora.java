@@ -1,15 +1,16 @@
 package classes.lab;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Seguradora {
     private String nome;
     private String telefone;
     private String email;
     private String endereco;
-    private List<Sinistro> listaSinistro;
-    private List<Cliente> listaCliente;
+    private ArrayList<Seguro> listaSeguros;
+    private ArrayList<Cliente> listaClientes;
+    private ArrayList<ClientePF> listaClientesPF;
+    private ArrayList<ClientePJ> listaClientePJ;
     // Construtor
 
     public Seguradora(String nome, String telefone, String email, String endereco) {
@@ -17,25 +18,44 @@ public class Seguradora {
         this.telefone = telefone;
         this.email = email;
         this.endereco = endereco;
-        this.listaSinistro = new ArrayList<>();
-        this.listaCliente = new ArrayList<>();
+        this.listaSeguros = new ArrayList<>();
+        this.listaClientes = new ArrayList<>();
+        this.listaClientePJ = new ArrayList<>();
+        this.listaClientesPF = new ArrayList<>();
+
     }
 
     // Getters e setters
-    public List<Sinistro> getListaSinistro() {
-        return listaSinistro;
+    public ArrayList<Seguro> getListaSeguros() {
+        return listaSeguros;
     }
 
-    public void setListaSinistro(ArrayList<Sinistro> listaSinistro) {
-        this.listaSinistro = listaSinistro;
+    public void setListaSeguros(ArrayList<Seguro> listaSeguros) {
+        this.listaSeguros = listaSeguros;
     }
 
-    public List<Cliente> getListaCliente() {
-        return listaCliente;
+    public ArrayList<Cliente> getListaClientes() {
+        return listaClientes;
     }
 
-    public void setListaCliente(ArrayList<Cliente> listaCliente) {
-        this.listaCliente = listaCliente;
+    public void setListaClientes(ArrayList<Cliente> listaClientes) {
+        this.listaClientes = listaClientes;
+    }
+
+    public ArrayList<ClientePF> getListaClientesPF() {
+        return listaClientesPF;
+    }
+
+    public void setListaClientesPF(ArrayList<ClientePF> listaClientesPF) {
+        this.listaClientesPF = listaClientesPF;
+    }
+
+    public ArrayList<ClientePJ> getListaClientePJ() {
+        return listaClientePJ;
+    }
+
+    public void setListaClientePJ(ArrayList<ClientePJ> listaClientePJ) {
+        this.listaClientePJ = listaClientePJ;
     }
 
     public String getNome() {
@@ -70,8 +90,37 @@ public class Seguradora {
         this.endereco = endereco;
     }
 
-    public Boolean cadastrarCliente(Cliente cliente) {
-        listaCliente.add(cliente);
+    public boolean cadastrarClientePf(ClientePF clientePF) {
+        if (listaClientesPF.isEmpty()) {
+            listaClientesPF.add(clientePF);
+            listaClientes.add(clientePF);
+        } else {
+            for (ClientePF cliente : listaClientesPF) {
+                if (cliente.getCpf().equals(clientePF.getCpf())) {
+                    System.out.println("Cliente já cadastrado");
+                    return false;
+                }
+            }
+            listaClientes.add(clientePF);
+            listaClientesPF.add(clientePF);
+        }
+        return true;
+    }
+
+    public boolean cadastrarClientePJ(ClientePJ clientePJ) {
+        if (listaClientePJ.isEmpty()) {
+            listaClientes.add(clientePJ);
+            listaClientePJ.add(clientePJ);
+        } else {
+            for (ClientePJ cliente : listaClientePJ) {
+                if (cliente.getCnpj().equals(clientePJ.getCnpj())) {
+                    System.out.println("Cliente já cadastrado");
+                    return false;
+                }
+            }
+            listaClientePJ.add(clientePJ);
+            listaClientes.add(clientePJ);
+        }
         return true;
     }
 

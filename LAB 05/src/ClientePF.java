@@ -1,6 +1,7 @@
 package classes.lab;
 
 import java.util.Date;
+import java.util.ArrayList;
 
 public class ClientePF extends Cliente {
     private final String cpfCliente;
@@ -8,7 +9,7 @@ public class ClientePF extends Cliente {
     private Date dataLicenca;
     private String educacao;
     private String genero;
-    private String classeEconomica;
+    private ArrayList<Veiculo> listaVeiculos;
 
     // Construtor da classe e superClasse
     public ClientePF(String nome, String endereco, Date dataLicenca, String educacao, String genero,
@@ -20,8 +21,7 @@ public class ClientePF extends Cliente {
         this.dataNascimento = dataNascimento;
         this.genero = genero;
         this.educacao = educacao;
-        this.classeEconomica = classeEconomica;
-
+        this.listaVeiculos = new ArrayList<>();
     }
 
     // GEtters and Setters
@@ -62,12 +62,12 @@ public class ClientePF extends Cliente {
         this.genero = genero;
     }
 
-    public String getClasseEconomica() {
-        return classeEconomica;
+    public ArrayList<Veiculo> getListaVeiculos() {
+        return listaVeiculos;
     }
 
-    public void setClasseEconomica(String classeEconomica) {
-        this.classeEconomica = classeEconomica;
+    public void setListaVeiculos(ArrayList<Veiculo> listaVeiculos) {
+        this.listaVeiculos = listaVeiculos;
     }
 
     @Override
@@ -75,10 +75,39 @@ public class ClientePF extends Cliente {
         return cpfCliente;
     }
 
+    public boolean removerVeiculo(Veiculo veiculo) {
+        for (Veiculo veiculoC : listaVeiculos) {
+            if (veiculoC.equals(veiculo)) {
+                listaVeiculos.remove(veiculoC);
+                System.out.println("Veiculo removido");
+                return true;
+            }
+        }
+        System.out.println("Veiculo não encontrado");
+        return false;
+    }
+
+    public boolean cadastrarVeiculo(Veiculo veiculo) {
+        for (Veiculo veiculoCadastrar : listaVeiculos) {
+            if (veiculoCadastrar.equals(veiculo)) {
+                System.out.println("O veiculo" + veiculo + "já está cadastrado");
+                return false;
+            }
+        }
+        listaVeiculos.add(veiculo);
+        System.out.println("Veículo cadastrado");
+        return true;
+    }
+
     // Método toString()
     @Override
     public String toString() {
-        return "ClientePF, cpf=" + cpfCliente + ", data de Nascimento=" + dataNascimento + "]";
+        return "[" + " cpf='" + getCpf() + "'" +
+                ", genero='" + getGenero() + "'" +
+                ", educacao='" + getEducacao() + "'" +
+                ", dataNascimento='" + getDataNascimento() + "'" +
+                ", listaVeiculos='" + getListaVeiculos() + "'" +
+                "]";
     }
 
     @Override
