@@ -25,6 +25,10 @@ public abstract class Seguro {
     }
 
     // Getters and Setters
+    public int getId() {
+        return this.id;
+    }
+
     public static int getCounter() {
         return counter;
     }
@@ -79,5 +83,60 @@ public abstract class Seguro {
 
     public void setValorMensal(double valorMensal) {
         this.valorMensal = valorMensal;
+    }
+
+    public boolean cadastrarCondutor(Condutor condutorCadastrar) {
+        for (Condutor condutor : listaCondutores) {
+            if (condutor.equals(condutorCadastrar)) {
+                System.out.println("Já possui cadastro");
+                return false;
+            }
+        }
+        listaCondutores.add(condutorCadastrar);
+        return true;
+    }
+
+    public boolean autorizarCondutor(Condutor condutorAutorizar) {
+        for (Condutor condutor : listaCondutores) {
+            if (condutor.equals(condutorAutorizar)) {
+                condutor.setAutorizacao(true);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean desautorizarCondutor(Condutor condutorDesauto) {
+        for (Condutor condutor : listaCondutores) {
+            if (condutor.equals(condutorDesauto)) {
+                condutor.setAutorizacao(false);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean gerarSinistro(LocalDate data, Condutor condutorSinistro, String enderecoCondutor) {
+        // Geração do Sinistro
+        Sinistro sinistro = new Sinistro(enderecoCondutor, enderecoCondutor, this, condutorSinistro);
+        ArrayList<Sinistro> listaSinistros = getListaSinistros();
+        listaSinistros.add(sinistro);
+        condutorSinistro.addSinistro(sinistro);
+        setListaSinistros(listaSinistros);
+        System.out.println("Sinistro Criado");
+        return true;
+    }
+
+    public abstract double calculaValor();
+
+    @Override
+
+    public String toString() {
+        return "{" +
+                " id='" + getId() + "'" + ", dataInicio='" + getDataInicio() + "'" + ", dataFim='" + getDataFim() + "'"
+                +
+                ", seguradora='" + getSeguradora() + "'" + ", listaSinistros='" + getListaSinistros() + "'"
+                + ", listaCondutores='" + getListaCondutores() + "'" +
+                ", valorMensal='" + getValorMensal() + "'" + "}";
     }
 }
