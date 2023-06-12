@@ -11,6 +11,7 @@ public class Seguradora {
     private ArrayList<Cliente> listaClientes;
     private ArrayList<ClientePF> listaClientesPF;
     private ArrayList<ClientePJ> listaClientePJ;
+    private ArrayList<Sinistro> listaSinistro;
     // Construtor
 
     public Seguradora(String nome, String telefone, String email, String endereco) {
@@ -22,6 +23,7 @@ public class Seguradora {
         this.listaClientes = new ArrayList<>();
         this.listaClientePJ = new ArrayList<>();
         this.listaClientesPF = new ArrayList<>();
+        this.listaSinistro = new ArrayList<>();
 
     }
 
@@ -90,6 +92,14 @@ public class Seguradora {
         this.endereco = endereco;
     }
 
+    public ArrayList<Sinistro> getListaSinistro() {
+        return listaSinistro;
+    }
+
+    public void setListaSinistro(ArrayList<Sinistro> listaSinistro) {
+        this.listaSinistro = listaSinistro;
+    }
+
     public boolean cadastrarClientePf(ClientePF clientePF) {
         if (listaClientesPF.isEmpty()) {
             listaClientesPF.add(clientePF);
@@ -134,9 +144,9 @@ public class Seguradora {
     }
 
     public Boolean removerCliente(String clienteId) {
-        for (int i = 0; i < listaCliente.size(); i++) {
-            if (verificaId(listaCliente.get(i), clienteId)) {
-                listaCliente.remove(i);
+        for (int i = 0; i < listaClientes.size(); i++) {
+            if (verificaId(listaClientes.get(i), clienteId)) {
+                listaClientes.remove(i);
                 return true;
             }
         }
@@ -146,7 +156,7 @@ public class Seguradora {
     public void listarClientes(String tipo) {
         String pessoaFisica = "PFIS";
         String pessoaJuridica = "PJUR";
-        for (Cliente clienteLista : listaCliente) {
+        for (Cliente clienteLista : listaClientes) {
             if (tipo.equals(pessoaFisica) && clienteLista.getTipoCliente().equals(pessoaFisica)) {
                 System.out.println(clienteLista);
             } else if (tipo.equals(pessoaJuridica) && clienteLista.getTipoCliente().equals(pessoaJuridica)) {
@@ -157,9 +167,24 @@ public class Seguradora {
 
     public Boolean gerarSinistro(Cliente cliente, String dataCliente, Veiculo veiculocCliente, Seguradora seguradora,
             String endereco) {
-        Sinistro sinistroCliente = new Sinistro(dataCliente, endereco, seguradora, veiculocCliente, cliente);
+        Sinistro sinistroCliente = new Sinistro(dataCliente, endereco, seguradora, cliente);
         listaSinistro.add(sinistroCliente);
         return true;
+    }
+
+    public ArrayList<Sinistro> getSinsistrosCliente(Cliente cliente) {
+        // Encontrar os sinistros no nome do cliente
+        int numSin = 0;
+        ArrayList<Sinistro> listaSinistro = new ArrayList<>();
+        for (Seguro seguro : listaSeguros) {
+            if (seguro.getCliente().equals(cliente)) {
+                for (Sinistro sinistro : seguro.getListaSinistros()) {
+                    numSin++;
+                    listaSinistro.add(sinistro);
+                }
+            }
+        }
+        return listaSinistro;
     }
 
     public Boolean visualizarSinistro(String clienteId, String tipoCliente) {
@@ -167,7 +192,7 @@ public class Seguradora {
         int visPJCounter = 0;
         String pessoaFisica = "PFIS";
         String pessoaJuridica = "PJUR";
-        for (Cliente clienteLista : listaCliente) {
+        for (Cliente clienteLista : listaClientes) {
             if (tipoCliente.equals(pessoaFisica) && clienteLista.getTipoCliente().equals(tipoCliente))
                 if (clienteLista.getId().equals(clienteId))
                     for (Sinistro sinistro : listaSinistro) {
@@ -205,7 +230,7 @@ public class Seguradora {
 
     public double calcularReceita() {
         double sum = 0;
-        for (Cliente cliente : listaCliente)
+        for (Cliente cliente : listaClientes)
             sum += cliente.getValorSeguro();
         return sum;
     }

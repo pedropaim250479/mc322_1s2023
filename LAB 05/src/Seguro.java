@@ -10,8 +10,8 @@ public abstract class Seguro {
     protected LocalDate dataInicio;
     protected LocalDate dataFim;
     protected Seguradora seguradora;
-    protected List<Sinistro> listaSinistros;
-    protected List<Condutor> listaCondutores;
+    protected ArrayList<Sinistro> listaSinistros;
+    protected ArrayList<Condutor> listaCondutores;
     protected double valorMensal;
 
     public Seguro(LocalDate dataInicio, LocalDate dataFim, Seguradora seguradora) {
@@ -61,19 +61,19 @@ public abstract class Seguro {
         this.seguradora = seguradora;
     }
 
-    public List<Sinistro> getListaSinistros() {
+    public ArrayList<Sinistro> getListaSinistros() {
         return listaSinistros;
     }
 
-    public void setListaSinistros(List<Sinistro> listaSinistros) {
+    public void setListaSinistros(ArrayList<Sinistro> listaSinistros) {
         this.listaSinistros = listaSinistros;
     }
 
-    public List<Condutor> getListaCondutores() {
+    public ArrayList<Condutor> getListaCondutores() {
         return listaCondutores;
     }
 
-    public void setListaCondutores(List<Condutor> listaCondutores) {
+    public void setListaCondutores(ArrayList<Condutor> listaCondutores) {
         this.listaCondutores = listaCondutores;
     }
 
@@ -116,9 +116,9 @@ public abstract class Seguro {
         return false;
     }
 
-    public boolean gerarSinistro(LocalDate data, Condutor condutorSinistro, String enderecoCondutor) {
+    public boolean gerarSinistro(String data, Condutor condutorSinistro, String enderecoCondutor) {
         // Geração do Sinistro
-        Sinistro sinistro = new Sinistro(enderecoCondutor, enderecoCondutor, this, condutorSinistro);
+        Sinistro sinistro = new Sinistro(data, enderecoCondutor, this.seguradora, condutorSinistro);
         ArrayList<Sinistro> listaSinistros = getListaSinistros();
         listaSinistros.add(sinistro);
         condutorSinistro.addSinistro(sinistro);
@@ -128,6 +128,8 @@ public abstract class Seguro {
     }
 
     public abstract double calculaValor();
+
+    public abstract Cliente getCliente();
 
     @Override
 
